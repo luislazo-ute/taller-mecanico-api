@@ -1,0 +1,40 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { TallerMecanico } from './taller-mecanico.entity';
+import { CreateTallerMecanicoDto } from './dto/create-taller-mecanico.dto';
+import { UpdateTallerMecanicoDto } from './dto/update-taller-mecanico.dto';
+
+@Injectable()
+export class TalleresMecanicosService {
+  constructor(
+    @InjectRepository(TallerMecanico)
+    private readonly tallerMecanicoRepository: Repository<TallerMecanico>,
+  ) {}
+
+  create(createTallerMecanicoDto: CreateTallerMecanicoDto) {
+    const tallerMecanico = this.tallerMecanicoRepository.create(createTallerMecanicoDto);
+    return this.tallerMecanicoRepository.save(tallerMecanico);
+  }
+
+  findAll() {
+    return this.tallerMecanicoRepository.find();
+  }
+
+  findOne(id: string) {
+    return this.tallerMecanicoRepository.findOne({ where: { id } });
+  }
+
+  async update(id: string, updateTallerMecanicoDto: UpdateTallerMecanicoDto) {
+    const tallerMecanico = await this.tallerMecanicoRepository.findOne({ where: { id } });
+    if (!tallerMecanico) return null;
+    Object.assign(tallerMecanico, updateTallerMecanicoDto);
+    return this.tallerMecanicoRepository.save(tallerMecanico);
+  }
+
+  async remove(id: string) {
+    const tallerMecanico = await this.tallerMecanicoRepository.findOne({ where: { id } });
+    if (!tallerMecanico) return null;
+    return this.tallerMecanicoRepository.remove(tallerMecanico);
+  }
+}
