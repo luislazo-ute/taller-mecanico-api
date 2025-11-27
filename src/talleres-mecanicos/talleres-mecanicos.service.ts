@@ -37,4 +37,29 @@ export class TalleresMecanicosService {
     if (!tallerMecanico) return null;
     return this.tallerMecanicoRepository.remove(tallerMecanico);
   }
+
+  costoTotal(costos: number[]) {
+    let total = 0;
+    let resp = "";
+  
+    costos.forEach(costo => {
+      if (costo > 0) {
+        total += costo;
+      }
+    });
+  
+    if (total < 100) {
+      resp = "Reparación económica";
+    } else if (total >= 100 && total < 500) {
+      resp = "Reparación media";
+    } else {
+      resp = "Reparación costosa";
+    }
+  
+    return {
+      costosArreglo: total,
+      mensaje: resp
+    };
+  }
+  
 }

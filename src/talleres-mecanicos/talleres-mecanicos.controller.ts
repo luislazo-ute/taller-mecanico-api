@@ -31,4 +31,9 @@ export class TalleresMecanicosController {
   remove(@Param('id') id: string) {
     return this.talleresMecanicosService.remove(id);
   }
+
+  @Post('costo-total')
+  costoTotal(@Body() body: any) {
+    return this.talleresMecanicosService.costoTotal(body.costos);
+  }
 }
