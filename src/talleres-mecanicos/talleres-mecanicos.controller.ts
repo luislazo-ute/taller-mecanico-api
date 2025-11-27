@@ -36,4 +36,9 @@ export class TalleresMecanicosController {
   costoTotal(@Body() body: any) {
     return this.talleresMecanicosService.costoTotal(body.costos);
   }
+
+  @Post('cambio-aceite')
+  cambioAceite(@Body() body: any) {
+    return this.talleresMecanicosService.cambioAceite(body.km_actual, body.km_ultimo_cambio);
+  }
 }

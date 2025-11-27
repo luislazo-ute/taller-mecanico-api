@@ -61,5 +61,23 @@ export class TalleresMecanicosService {
       mensaje: resp
     };
   }
+
+  cambioAceite(km_actual:number, km_ultimo_cambio:number){
+    const recorridos: number = km_actual-km_ultimo_cambio;
+    let resp = "";
+    if(recorridos<5000){
+        resp ="No es necesario cambio inmediato";
+    } else if (recorridos>=5000 && recorridos < 8000){
+        resp ="Recomendable programar cambio";
+    } else {
+        resp = "Cambio urgente de aceite";
+    }
+
+    return {
+        km_recorridos: recorridos,
+        mensaje: resp
+    };
+
+  }
   
 }
